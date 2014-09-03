@@ -18,8 +18,8 @@ het bestand `painting.txt`).
 
 In de tabel wordt het aantal tekens weergegeven dat gebruikt wordt in de oplossing S.java,
 berekent met het command `wc -c *.java`.
-     
- | Karakters | Bestand          |
- |----------:|------------------|
- |       751 | S.java           |
- |      2200 | SplashPaint.java |
+          
+Karakters | Bestand
+----------|-----------------
+      751 | S.java
+     2200 | SplashPaint.java
