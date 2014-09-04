@@ -3,9 +3,14 @@
 echo "Number of characters in SplashPaint and its minified version S:"
 wc -c *.java
 
-echo "Running readable version:"
-javac -nowarn SplashPaint.java && java SplashPaint < painting.txt
+for class in SplashPaint S
+do
+    echo "Compiling $class"
+    if ! javac -nowarn $class.java; then exit; fi
 
-echo "Running minified version:"
-javac -nowarn S.java && java S < painting.txt
-
+    for painting in painting*.txt
+    do
+        echo "Running $class on $painting"
+        java $class < $painting
+    done
+done

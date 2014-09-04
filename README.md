@@ -21,5 +21,5 @@ berekent met het command `wc -c *.java`.
           
 Karakters|Bestand
 ---------|-----------------
-      733|S.java
-     2398|SplashPaint.java
+      723|S.java
+     2588|SplashPaint.java
