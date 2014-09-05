@@ -1,4 +1,3 @@
-import javafx.util.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -24,11 +23,7 @@ class SplashPaint
 
         // Vanuit elk coordinaat starten we het flood fill algoritme, dat de collectie 'c' vult
         // met alle verfvlek coordinaten.
-        // De volgorde van itereren is van belang zodat we later geen karakters kwijtraken aan sorteren.
-        // Ooit was dit iets beter leesbaar, maar een dubbele for-loop (buitenste loop y, binnenste loop x)
-        // heeft plaatst gemaakt voor een enkele die hetzelfde doet. Deze volgorde, in combinatie
-        // met het alleen overschrijven van de uiteindelijke oplossing 's' als deze beter is er toe leidt
-        // dat we de gewenste oplossing eerst vinden.
+        // De volgorde van itereren zorgt ervoor dat de gewenste oplossing eerst gevonden wordt.
         // Uiteraard doen we verder geen enkele karaktervretende optimalisatie.
         for (x=0; x<196; x++)
         {
@@ -39,9 +34,10 @@ class SplashPaint
         }
 
         // Hier drukken we de oplossing af. Deze kan "0" zijn als er geen verfvlekken zijn.
-        System.out.println(s == null ? "0" : s.size() + " => " + s.stream().
-            map(e->"("+((int)((Pair)e).getKey()-1)+", "+((int)((Pair)e).getValue()-1)+")").
-            collect(Collectors.joining(", ")));
+        // We moeten sorteren eerst op y (value) en dan op x (key).
+        System.out.println(s == null ? "0" : s.size() + " => " + s.stream().sorted().
+                map(Object::toString).
+                collect(Collectors.joining(", ")));
     }
 
     @SuppressWarnings("unchecked")
@@ -49,13 +45,37 @@ class SplashPaint
     {
         if (p[14*y+x]!=0)
         {
-            c.add(new Pair(x, y));
+            c.add(new P(x, y));
 
-            // Iteratie is weer in juiste volgorde zodat verzameling 'c' later niet
-            // nog eens gesorteerd hoeft te worden.
             for (int i = 0; i < 9; i++)
-                if (!c.contains(new Pair(i/3-1+x, i%3-1+y)))
+                if (!c.contains(new P(i/3-1+x, i%3-1+y)))
                     flood(i/3-1+x, i%3-1+y);
+        }
+    }
+
+    // Pair class
+    static class P implements Comparable<P>
+    {
+        int k,v;
+
+        P (int x,int y)
+        {
+            k = x;
+            v = y;
+        }
+        public int compareTo(P o)
+        {
+            return 99*(v-o.v)+k-o.k;
+        }
+
+        public String toString()
+        {
+            return "("+(k-1)+", "+(v-1)+")";
+        }
+
+        public boolean equals(Object o)
+        {
+            return ((P)o).k==k&((P)o).v==v;
         }
     }
 }
