@@ -1,22 +1,25 @@
 import java.util.*;
-import java.util.stream.*;
 
 class SplashPaint
 {
     // Array p is een 14x14 array die het schilderij bevat. Er zit een extra rand om het schilderij heen,
     // altijd met waarde 'false', zodat we geen index checking hoeven te doen. Het flood fill algoritme
     // doet namelijk niets als het op een veld komt met waarde 'false'.
-    static int p[] = new int[196],
+    int p[] = new int[196],
         x = 14; // eigenlijk locale variabele voor 'main' methode.
     // Ooit gedacht wat het voordeel was van Vector? (het is minder typen dan ArrayList)
-    static List c = new Vector(), s;
+    List c = new Vector(), s;
+    // We lezen stdin met een Scanner
+    Scanner a = new Scanner(System.in).useDelimiter(",");
 
     @SuppressWarnings("unchecked")
     public static void main(String[]_)
     {
-        // We lezen stdin met een Scanner
-        Scanner a = new Scanner(System.in).useDelimiter(",");
+        new SplashPaint();
+    }
 
+    SplashPaint()
+    {
         // Vullen van de 'painting' array
         while (a.hasNext())
             p[x % 14 == 12 ? x += 3 : ++x] = a.next().indexOf("X")+1;
@@ -35,47 +38,38 @@ class SplashPaint
 
         // Hier drukken we de oplossing af. Deze kan "0" zijn als er geen verfvlekken zijn.
         // We moeten sorteren eerst op y (value) en dan op x (key).
-        System.out.println(s == null ? "0" : s.size() + " => " + s.stream().sorted().
-                map(Object::toString).
-                collect(Collectors.joining(", ")));
+        System.out.println(s == null ? "0" : s.size() + " => " + s.stream().
+            sorted((e,f) -> 99*(((Pair)e).y-((Pair)f).y)+((Pair)e).x-((Pair)f).x).
+            map(e->"("+(((Pair)e).x-1)+", "+(((Pair)e).y-1)+")").
+            collect(java.util.stream.Collectors.joining(", ")));
     }
 
     @SuppressWarnings("unchecked")
-    static void flood(int x, int y)
+    void flood(int x, int y)
     {
         if (p[14*y+x]!=0)
         {
-            c.add(new P(x, y));
+            c.add(new Pair(x, y));
 
             for (int i = 0; i < 9; i++)
-                if (!c.contains(new P(i/3-1+x, i%3-1+y)))
+                if (!c.contains(new Pair(i/3-1+x, i%3-1+y)))
                     flood(i/3-1+x, i%3-1+y);
         }
     }
+}
 
-    // Pair class
-    static class P implements Comparable<P>
+class Pair
+{
+    int x, y;
+
+    Pair(int u, int v)
     {
-        int k,v;
+        x = u;
+        y = v;
+    }
 
-        P (int x,int y)
-        {
-            k = x;
-            v = y;
-        }
-        public int compareTo(P o)
-        {
-            return 99*(v-o.v)+k-o.k;
-        }
-
-        public String toString()
-        {
-            return "("+(k-1)+", "+(v-1)+")";
-        }
-
-        public boolean equals(Object o)
-        {
-            return ((P)o).k==k&((P)o).v==v;
-        }
+    public boolean equals(Object o)
+    {
+        return x==((Pair)o).x && y==((Pair)o).y;
     }
 }

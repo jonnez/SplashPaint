@@ -33,7 +33,7 @@ class DecompressCompileAndRun extends SimpleJavaFileObject
             // of: zip - S.java | openssl base64
 
             ByteArrayInputStream byteStream = new ByteArrayInputStream(Base64.getDecoder().decode(encoded));
-            byte[] sJava = new byte[723]; // array size is file size of S.java
+            byte[] sJava = new byte[797]; // array size is file size of S.java
             new GZIPInputStream(byteStream).read(sJava);
             return new String(sJava);
         }

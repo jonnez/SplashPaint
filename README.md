@@ -22,7 +22,7 @@ We zouden dan een bestand `D.java` kunnen maken die de Base64 encoded string bev
 deze decodeert, unzipped, compileert en uitvoer! De vraag is wel of het uiteindelijke
 programma korter kan worden.
 
-Class `DecompressCompileAndRun.java` laat het beste zien hoe ik deze methode gemaakt heb.
+Class `DecompressCompileAndRun.java` laat het beste zien hoe ik van deze methode gebruik maak.
 Methode `zipAndBase64Encode()` leest bestand `S.java` in van hierboven, zipped deze data,
 dan Base64 encoding, en de output daarvan is wat we uiteindelijk nodig hebben.
 
@@ -38,10 +38,10 @@ minified versie van class `SplashPaintZonderMain`.
 Uiteindelijk is `D.java`, de minified versie van `D2.java`. Een oplossing die helaas
 onder doet voor `S.java`. Jammer, nietwaar?
 
-Ik weet helaas geen eenvoudige betere optie dan Base64 encodering. Dat wil zeggen
-zonder dat zelf te implementeren met bijvoorbeeld 256 unicode characters.
-De enige conclusie die ik nu kan trekken is dat `S.java` een te kort programma was en
-dat ik daar derhalve de challenge mee moet gaan winnen.
+Ik weet helaas geen eenvoudige betere optie dan Base64 encodering. Er zijn nog wel betere,
+maar een implementatie daarvoor zou weer te lang worden.
+De enige conclusie die ik nu kan trekken is dat `S.java` zo kort is dat de methode niet
+werkt. Maar hee, dan maak ik daar misschien wel kans mee voor de code challenge??!!
 
 ## Oplossing
 
@@ -50,9 +50,5 @@ berekent met het command `wc -c *.java`.
           
 Karakters|Class
 ---------|-----------------
-     2547|SplashPaint
-     2587|SplashPaintZonderMain
-     2176|DecompressCompileAndRun.java
-      723|S
-      ???|T
-      ???|D
+      797|S
+     1208|D
