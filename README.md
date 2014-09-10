@@ -50,5 +50,5 @@ berekent met het command `wc -c *.java`.
           
 Karakters|Class
 ---------|-----------------
-      797|S
+      788|S
      1208|D

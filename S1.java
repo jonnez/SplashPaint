@@ -9,8 +9,8 @@ class S1
     public static void main(String[]_){new S();}
     S1()
     {
-        while (a.hasNext())
-            p[x % 14 == 12 ? x += 3 : ++x] = a.next().indexOf("X")+1;
+        for (;x<180;)
+            p[x % 14 == 12 ? x += 3 : ++x] = a.next().indexOf(88)+1;
 
         for (x=0; x<196; x++)
         {
@@ -20,7 +20,7 @@ class S1
                 s = new Vector(c);
         }
 
-        System.out.println(s == null ? "0" : s.size() + " => " + s.stream().
+        System.out.println(s == null ? 0 : s.size() + " => " + s.stream().
             sorted((e,f) -> 99*(((P1)e).y-((P1)f).y)+((P1)e).x-((P1)f).x).
             map(e->"("+(((P1)e).x-1)+", "+(((P1)e).y-1)+")").
             collect(java.util.stream.Collectors.joining(", ")));

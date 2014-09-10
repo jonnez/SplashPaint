@@ -1,5 +1,7 @@
 import java.util.*;
 
+// TODO: still need to verify if System.in.read() can beat Scanner
+
 class SplashPaint
 {
     // Array p is een 14x14 array die het schilderij bevat. Er zit een extra rand om het schilderij heen,
@@ -20,9 +22,9 @@ class SplashPaint
 
     SplashPaint()
     {
-        // Vullen van de 'painting' array
-        while (a.hasNext())
-            p[x % 14 == 12 ? x += 3 : ++x] = a.next().indexOf("X")+1;
+        // Vullen van de 'painting' array (88 = 'X')
+        for (;x<180;)
+            p[x % 14 == 12 ? x += 3 : ++x] = a.next().indexOf(88)+1;
 
         // Vanuit elk coordinaat starten we het flood fill algoritme, dat de collectie 'c' vult
         // met alle verfvlek coordinaten.
@@ -36,9 +38,13 @@ class SplashPaint
                 s = new Vector(c);
         }
 
-        // Hier drukken we de oplossing af. Deze kan "0" zijn als er geen verfvlekken zijn.
-        // We moeten sorteren eerst op y (value) en dan op x (key).
-        System.out.println(s == null ? "0" : s.size() + " => " + s.stream().
+        // Hier drukken we de oplossing af.
+        // - We moeten sorteren eerst op y (value) en dan op x (key).
+        // - Formattering van coordinaten moet zijn: "size => (x1, y1), (x2, y2)",
+        //   we kunnen dus niet simpelweg toString op een array of collection doen, want
+        //   dan zouden we haken om de coordinaten krijgen.
+        // - Aanname is dat we "0" moeten printen als er geen verfvlekken zijn.
+        System.out.println(s == null ? 0 : s.size() + " => " + s.stream().
             sorted((e,f) -> 99*(((Pair)e).y-((Pair)f).y)+((Pair)e).x-((Pair)f).x).
             map(e->"("+(((Pair)e).x-1)+", "+(((Pair)e).y-1)+")").
             collect(java.util.stream.Collectors.joining(", ")));
@@ -68,6 +74,8 @@ class Pair
         y = v;
     }
 
+    // Vector.contains() maakt gebruik van deze equals() methode om te kijken of het object al
+    // in de vector zit - de contains() aanroep zit in de flood() methode.
     public boolean equals(Object o)
     {
         return x==((Pair)o).x && y==((Pair)o).y;
