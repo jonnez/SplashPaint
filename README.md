@@ -5,7 +5,7 @@ Code Challenge Java Magazine #4
 
 ## Eerste poging
 
-Het bestand `SplashPaint.java` bevat de "leesbare" implementatie voor de challenge.
+Het bestand [SplashPaint](SplashPaint.java) bevat de "leesbare" implementatie voor de challenge.
 Het bestand `S.java` is dezelfde code, maar commentaar en zoveel mogelijk whitespace
 is daarin verwijderd.
 
